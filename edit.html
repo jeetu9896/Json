@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            width: 80%; 
+            margin: auto;
+        }
+        #datainput{
+            width: 80%;
+            margin: auto;
+        }
+        #datainput>input{
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="datainput">
+        <input type="text" name="" id="name" placeholder="Name"><br>
+        <input type="number" name="" id="age" placeholder="Age"><br>
+        <input type="text" name="" id="gender" placeholder="Gender"><br>
+        <input type="number" name="" id="marks" placeholder="Marks"><br>
+        <input type="text" name="" id="cohort" placeholder="Cohort"><br>
+        <input type="button" name="" id="submit" value="Update" onclick="updatedata()">
+    </div>
+</body>
+<script>
+    var id = JSON.parse(localStorage.getItem('id'));
+    async function updatedata() {
+        try {
+            var response = await fetch(`http://localhost:3000/students/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: document.getElementById('name').value,
+                    age: +document.getElementById('age').value,
+                    gender: document.getElementById('gender').value,
+                    marks: document.getElementById("marks").value,
+                    cohort: document.getElementById("cohort").value
+                })
+            }
+
+            )
+            window.location.href = "index.html";
+        } catch (err) {
+            console.log(err);
+        }
+       
+    }
+    getdata()
+
+async function getdata() {
+    try {
+        var response = await fetch(`http://localhost:3000/students/${id}`);
+        var data = await response.json();
+        document.getElementById('name').value = data.name;
+        document.getElementById('age').value = data.age
+        document.getElementById('gender').value = data.gender
+        document.getElementById('marks').value = data.marks
+        document.getElementById('cohort').value = data.cohort
+        
+        console.log(data);
+    } catch (error) {
+        console.log(error);
+    }
+}
+</script>
+
+</html>

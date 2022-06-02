@@ -1,0 +1,60 @@
+{
+  "students": [
+    {
+      "name": "Jiten",
+      "age": 30,
+      "gender": "Male",
+      "marks": "50",
+      "cohort": "PTWEB04",
+      "id": 3
+    },
+    {
+      "name": "Kingsley Garry",
+      "age": 18,
+      "gender": "Bigender",
+      "id": 4,
+      "marks": 9,
+      "cohort": "PTWEB01"
+    },
+    {
+      "name": "Anette Wellard",
+      "age": 22,
+      "gender": "Female",
+      "id": 5,
+      "marks": 34,
+      "cohort": "PTWEB03"
+    },
+    {
+      "name": "Dinnie Bolzmann",
+      "age": 18,
+      "gender": "Female",
+      "id": 6,
+      "marks": 49,
+      "cohort": "PTWEB07"
+    },
+    {
+      "name": "Germaine Kimmings",
+      "age": 23,
+      "gender": "Male",
+      "id": 8,
+      "marks": 4,
+      "cohort": "PTWEB02"
+    },
+    {
+      "name": "Justin Pancoust",
+      "age": 27,
+      "gender": "Male",
+      "id": 9,
+      "marks": 16,
+      "cohort": "PTWEB03"
+    },
+    {
+      "name": "mohit",
+      "age": 24,
+      "gender": "male",
+      "marks": "30",
+      "cohort": "PTWEB05",
+      "id": 10
+    }
+  ]
+}

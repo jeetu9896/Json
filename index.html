@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            margin: 50px;
+            border: 1px solid black;
+        }
+
+        tr {
+            border: 1px solid black;
+        }
+
+        th {
+            border: 1px solid black;
+            /* padding: 10px; */
+        }
+
+        td {
+            border: 1px solid black;
+            /* padding: 10px; */
+        }
+        body{
+            margin: 50px;
+            padding: 50px;
+        }
+        #container{
+            width: 80%;
+            margin: auto;
+        }
+        #datainput{
+            width: 80%;
+            margin: auto;
+        }
+        #datainput>input{
+            margin: 10px;
+        }
+        
+            
+        
+    </style>
+</head>
+
+
+<body>
+    <div id="container">
+        <div id="datainput">
+            <input type="text" name="" id="name" placeholder="Name">
+            <br>
+            <input type="number" name="" id="age" placeholder="Age">
+            <br>
+            <input type="text" name="" id="gender" placeholder="Gender">
+            <br>
+            <input type="number" name="" id="marks" placeholder="Marks">
+            <br>
+            <input type="text" name="" id="cohort" placeholder="Cohort">
+            <br>
+            <input type="button" name="" id="submit" value="Submit" onclick="postdata()">
+        </div>
+        <div id="main">
+
+        </div>
+    </div>
+</body>
+<script>
+    async function postdata() {
+        try {
+            var name = document.getElementById('name').value;
+            var age = +document.getElementById('age').value;
+            var gender = document.getElementById('gender').value
+            var marks = +document.getElementById('marks').value
+            var cohort = document.getElementById('cohort').value
+            var body = {
+                name,
+                age,
+                gender,
+                marks,
+                cohort
+            }
+            var res = await fetch("http://localhost:3000/students", {
+                method: "POST",
+                body: JSON.stringify(body),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            var data = await res.json()
+        }
+        catch (err) {
+            console.log(err);
+        }
+        console.log(name, age, gender, marks, cohort)
+    }
+
+    async function updatedom() {
+
+        try {
+            var res = await fetch("http://localhost:3000/students")
+            var data = await res.json()
+            var table = document.createElement('table')
+            var thead = document.createElement('thead')
+            var tr = document.createElement('tr')
+            var th1 = document.createElement('th')
+            th1.innerText = "ID"
+            var th2 = document.createElement('th')
+            th2.innerText = "Name"
+            var th3 = document.createElement('th')
+            th3.innerText = "Age"
+            var th4 = document.createElement('th')
+            th4.innerText = "Gender"
+            var th5 = document.createElement('th')
+            th5.innerText = "Marks"
+            var th6 = document.createElement('th')
+            th6.innerText = "Cohort"
+            var th7 = document.createElement('th')
+            th7.innerText = "Action"
+            var th8 = document.createElement('th')
+            th8.innerText = "Delete"
+
+            tr.append(th1, th2, th3, th4, th5, th6, th7, th8)
+            thead.append(tr)
+            table.append(thead)
+            document.getElementById('main').append(table)
+            var tbody = document.createElement('tbody')
+            table.append(tbody)
+            data.forEach(student => {
+                var tr = document.createElement('tr')
+                var td1 = document.createElement('td')
+                td1.innerText = student.id
+                var td2 = document.createElement('td')
+                td2.innerText = student.name
+                var td3 = document.createElement('td')
+                td3.innerText = student.age
+                var td4 = document.createElement('td')
+                td4.innerText = student.gender
+                var td5 = document.createElement('td')
+                td5.innerText = student.marks
+                var td6 = document.createElement('td')
+                td6.innerText = student.cohort
+                var td7 = document.createElement('td')
+                var edit = document.createElement('button')
+                edit.innerText = "Edit"
+                edit.onclick = 
+                    function(){
+                      localStorage.setItem("id", student.id);
+                        
+                        window.location.href="edit.html"
+                    }
+                
+                
+                td7.append(edit)
+
+                var td8 = document.createElement('td')
+                var deletebutton = document.createElement('button')
+                deletebutton.innerText = "Delete"
+                deletebutton.onclick = async function () {
+                    var res = fetch("http://localhost:3000/students/" + student.id, {
+                        method: "DELETE"
+                    })
+
+                }
+                td8.append(deletebutton)
+
+                tr.append(td1, td2, td3, td4, td5, td6, td7, td8)
+                tbody.append(tr)
+            });
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+    updatedom()
+</script>
+
+</html>
